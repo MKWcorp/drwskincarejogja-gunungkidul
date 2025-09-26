@@ -251,7 +251,7 @@ export default function DRWSkincare() {
       {/* Topbar */}
       <div className="w-full text-xs md:text-sm bg-pink-50 border-b border-pink-100">
         <div className="mx-auto max-w-6xl px-4 py-2 flex items-center justify-between">
-          <span className="font-medium hidden sm:block">{brand.domain}</span>
+          <a href={`https://${brand.domain}`} className="font-medium hidden sm:block hover:underline">DRW Skincare Official Website</a>
           <span className="font-medium sm:hidden">DRW Skincare</span>
           <a
             href={`https://wa.me/${brand.phoneWa}`}
@@ -268,17 +268,7 @@ export default function DRWSkincare() {
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div
-              className="w-8 h-8 md:w-9 md:h-9 rounded-full"
-              style={{
-                background: `radial-gradient(120% 120% at 20% 20%, ${brand.colors.pink}, #ffd4e8 60%, white 100%)`,
-              }}
-              aria-hidden
-            />
-            <div className="leading-tight">
-              <div className="font-extrabold tracking-tight font-heading text-sm md:text-base">{brand.name}</div>
-              <div className="text-xs text-gray-500 hidden sm:block">Cantikmu Berawal dari Sini</div>
-            </div>
+            <img src="/logo_drwskincare.png" alt="DRW Skincare Logo" className="w-auto h-8 md:h-9" />
           </div>
           
           {/* Desktop Navigation */}

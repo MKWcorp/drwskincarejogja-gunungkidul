@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Head from "next/head";
 
-// ✅ Single-file React/Next.js landing page for DRW Skincare Gunungkidul
+// ✅ Single-file React/Next.js landing page for DRW Skincare
 // - Tailwind CSS (white & pink theme)
 // - Strong HOOK hero copy for DRW Skincare
 // - Product gallery + lightbox
@@ -9,11 +9,11 @@ import Head from "next/head";
 // - Contact, social, and embedded map
 // - Dev test block for formatIDR (toggle with DEBUG_TESTS)
 
-export default function DRWSkincareGunungkidul() {
+export default function DRWSkincare() {
   const DEBUG_TESTS = false; // 👉 set true to render simple test cases for formatIDR
 
   const brand = {
-    name: "DRW Skincare Gunungkidul",
+    name: "DRW Skincare",
     phoneWa: "6281229449995", // WA untuk konsultasi, pesan produk, dan booking
     domain: "drwskincaregunungkidul.com",
     colors: {
@@ -22,7 +22,7 @@ export default function DRWSkincareGunungkidul() {
       dark: "#111111",
     },
     address:
-      "Jl. Brigjen Katamso No.38, Purbosari, Wonosari, Kec. Wonosari, Kabupaten Gunungkidul, Daerah Istimewa Yogyakarta 55851",
+      "Jl. Brigjen Katamso No.38, Purbosari, Wonosari, Daerah Istimewa Yogyakarta 55851",
     gmaps: "https://maps.app.goo.gl/PzZTQNfSaJQx8GnU6",
     social: {
       fb: "https://www.facebook.com/irin.ku1",
@@ -241,8 +241,8 @@ export default function DRWSkincareGunungkidul() {
   return (
     <>
       <Head>
-        <title>DRW Skincare Gunungkidul - Facial & Perawatan Wajah Terbaik di Yogyakarta</title>
-        <meta name="description" content="DRW Skincare Gunungkidul menyediakan layanan facial acne, whitening, rejuvenation terbaik di Wonosari. Produk klinis berkualitas, harga terjangkau. Booking sekarang di wa.me/6281229449995" />
+        <title>DRW Skincare - Facial & Perawatan Wajah Terbaik di Jogja</title>
+        <meta name="description" content="DRW Skincare menyediakan layanan facial acne, whitening, rejuvenation terbaik di Wonosari, Jogja. Produk klinis berkualitas, harga terjangkau. Booking sekarang di wa.me/6281229449995" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -378,11 +378,11 @@ export default function DRWSkincareGunungkidul() {
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-14 grid md:grid-cols-2 gap-6 md:gap-10 items-center">
           <div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight font-heading">
-              <span itemProp="name">DRW Skincare Gunungkidul</span> - Kulit Cerah. Percaya Diri. <span style={{ color: brand.colors.pink }}>#GlowBarengDRW</span>
+              <span itemProp="name">DRW Skincare</span> - Kulit Cerah. Percaya Diri. <span style={{ color: brand.colors.pink }}>#GlowBarengDRW</span>
             </h1>
             <p className="mt-4 text-base md:text-lg text-gray-600 max-w-prose font-sans leading-relaxed" itemProp="description">
-              <strong>Beauty Center terpercaya di Gunungkidul</strong> untuk layanan <em>facial profesional</em>, <em>perawatan acne</em>, <em>whitening</em>, dan <em>rejuvenation</em>. 
-              Menggunakan <strong>produk klinis DRW</strong> yang inovatif dan terpercaya. Rasakan layanan hangat dan hasil yang nyata di <span itemProp="address">Wonosari, Gunungkidul, Yogyakarta</span>.
+              <strong>Beauty Center terpercaya di Jogja</strong> untuk layanan <em>facial profesional</em>, <em>perawatan acne</em>, <em>whitening</em>, dan <em>rejuvenation</em>. 
+              Menggunakan <strong>produk klinis DRW</strong> yang inovatif dan terpercaya. Rasakan layanan hangat dan hasil yang nyata di <span itemProp="address">Wonosari, Jogja</span>.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row flex-wrap gap-3">
               <a href="#treatments" className="px-4 md:px-5 py-3 rounded-full border border-pink-300 hover:bg-pink-50 text-center text-sm md:text-base">
@@ -407,7 +407,7 @@ export default function DRWSkincareGunungkidul() {
             <div className="aspect-[4/3] w-full rounded-2xl border border-gray-200 bg-gradient-to-br from-pink-50 to-white p-2">
               <div className="h-full w-full rounded-xl bg-white flex items-center justify-center text-center p-6">
                 <div>
-                  <div className="text-sm uppercase tracking-widest text-gray-400">Gunungkidul</div>
+                  <div className="text-sm uppercase tracking-widest text-gray-400">Jogja</div>
                   <div className="text-2xl font-bold font-heading">Timeless Beauty, Effortless Glow</div>
                   <div className="mt-2 text-gray-500">Facial • Rejuvenation • Acne Care • Brightening</div>
                 </div>
@@ -429,7 +429,7 @@ export default function DRWSkincareGunungkidul() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-heading">Menu Perawatan DRW Skincare</h2>
-            <p className="text-gray-600 font-sans text-sm md:text-base">Layanan <strong>facial profesional</strong> dari <em>Acne Series</em> hingga <em>Whitening & Rejuvenation</em> di Gunungkidul</p>
+            <p className="text-gray-600 font-sans text-sm md:text-base">Layanan <strong>facial profesional</strong> dari <em>Acne Series</em> hingga <em>Whitening & Rejuvenation</em> di Jogja</p>
           </div>
           <a
             href={`https://wa.me/${brand.phoneWa}`}
@@ -588,8 +588,8 @@ export default function DRWSkincareGunungkidul() {
       <section id="contact" className="bg-gradient-to-b from-white to-pink-50/60 border-t border-gray-200">
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-14 grid md:grid-cols-2 gap-6 md:gap-10">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-heading">Hubungi DRW Skincare Gunungkidul</h2>
-            <p className="text-gray-600 mt-1 font-sans text-sm md:text-base">Siap bantu <strong>konsultasi gratis</strong> & <em>booking jadwal perawatan</em> di Wonosari, Gunungkidul</p>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-heading">Hubungi DRW Skincare</h2>
+            <p className="text-gray-600 mt-1 font-sans text-sm md:text-base">Siap bantu <strong>konsultasi gratis</strong> & <em>booking jadwal perawatan</em> di Wonosari, Jogja</p>
             <div className="mt-6 space-y-3 text-sm md:text-base">
               <InfoRow
                 label="WhatsApp"
@@ -652,7 +652,7 @@ export default function DRWSkincareGunungkidul() {
           </div>
           <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
             <iframe 
-              title="DRW Skincare Gunungkidul"
+              title="DRW Skincare Jogja"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252983.71456113076!2d110.25941645444502!3d-7.803527520315312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7bb342ff9a4ca7%3A0xc6bee2a5ada03887!2sDRW%20Skincare%20Gunungkidul%20Rumah%20Cantik%20Irin%202!5e0!3m2!1sid!2sid!4v1758889371731!5m2!1sid!2sid" 
               className="w-full h-[320px] md:h-full"
               style={{ border: 0 }}

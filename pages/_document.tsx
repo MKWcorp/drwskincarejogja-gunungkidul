@@ -5,29 +5,29 @@ export default function Document() {
     <Html lang="id">
       <Head>
         {/* Primary Meta Tags */}
-        <meta name="title" content="DRW Skincare Gunungkidul - Beauty Center Terpercaya di Yogyakarta" />
-        <meta name="description" content="DRW Skincare Gunungkidul menyediakan layanan facial, perawatan acne, whitening, rejuvenation dengan produk klinis terbaik. Lokasi di Wonosari, Gunungkidul. Booking sekarang!" />
-        <meta name="keywords" content="DRW Skincare, DRW Skincare Gunungkidul, DRW Skincare Jogja, facial Gunungkidul, perawatan wajah Yogyakarta, skincare clinic, beauty center, acne treatment, whitening facial, rejuvenation" />
+        <meta name="title" content="DRW Skincare - Beauty Center Terpercaya di Jogja" />
+        <meta name="description" content="DRW Skincare menyediakan layanan facial, perawatan acne, whitening, rejuvenation dengan produk klinis terbaik. Lokasi di Wonosari, Jogja. Booking sekarang!" />
+        <meta name="keywords" content="DRW Skincare, DRW Skincare Jogja, facial Yogyakarta, facial Gunungkidul, facial Wonosari, facial Jogja, perawatan wajah Yogyakarta, perawatan wajah Gunungkidul, perawatan wajah Wonosari, skincare clinic, beauty center, acne treatment, whitening facial, rejuvenation" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="Indonesian" />
-        <meta name="author" content="DRW Skincare Gunungkidul" />
+        <meta name="author" content="DRW Skincare" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://drwskincaregunungkidul.com/" />
-        <meta property="og:title" content="DRW Skincare Gunungkidul - Beauty Center Terpercaya" />
-        <meta property="og:description" content="Layanan facial profesional, perawatan acne, whitening & rejuvenation di Gunungkidul. Produk klinis DRW berkualitas tinggi. Konsultasi gratis!" />
+        <meta property="og:title" content="DRW Skincare - Beauty Center Terpercaya" />
+        <meta property="og:description" content="Layanan facial profesional, perawatan acne, whitening & rejuvenation di Jogja. Produk klinis DRW berkualitas tinggi. Konsultasi gratis!" />
         <meta property="og:image" content="https://drwskincaregunungkidul.com/images/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="DRW Skincare Gunungkidul" />
+        <meta property="og:site_name" content="DRW Skincare" />
         <meta property="og:locale" content="id_ID" />
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://drwskincaregunungkidul.com/" />
-        <meta property="twitter:title" content="DRW Skincare Gunungkidul - Beauty Center Terpercaya" />
-        <meta property="twitter:description" content="Layanan facial profesional, perawatan acne, whitening & rejuvenation di Gunungkidul. Konsultasi gratis!" />
+        <meta property="twitter:title" content="DRW Skincare - Beauty Center Terpercaya" />
+        <meta property="twitter:description" content="Layanan facial profesional, perawatan acne, whitening & rejuvenation di Jogja. Konsultasi gratis!" />
         <meta property="twitter:image" content="https://drwskincaregunungkidul.com/images/twitter-image.jpg" />
         
         {/* Canonical URL */}
@@ -38,14 +38,14 @@ export default function Document() {
         
         {/* Geo Tags */}
         <meta name="geo.region" content="ID-YO" />
-        <meta name="geo.placename" content="Gunungkidul, Yogyakarta" />
+        <meta name="geo.placename" content="Yogyakarta" />
         <meta name="geo.position" content="-7.803528;110.259416" />
         <meta name="ICBM" content="-7.803528, 110.259416" />
         
         {/* Business Info */}
         <meta name="contact:phone_number" content="+6281229449995" />
         <meta name="contact:email" content="info@drwskincaregunungkidul.com" />
-        <meta name="contact:address" content="Jl. Brigjen Katamso No.38, Purbosari, Wonosari, Gunungkidul, DIY 55851" />
+        <meta name="contact:address" content="Jl. Brigjen Katamso No.38, Purbosari, Wonosari, DIY 55851" />
         
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -80,9 +80,9 @@ export default function Document() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "BeautySalon",
-              "name": "DRW Skincare Gunungkidul",
+              "name": "DRW Skincare",
               "alternateName": ["DRW Skincare", "Rumah Cantik Irin 2"],
-              "description": "Beauty Center terpercaya untuk layanan facial, perawatan acne, whitening, dan rejuvenation dengan produk klinis DRW di Gunungkidul, Yogyakarta.",
+              "description": "Beauty Center terpercaya untuk layanan facial, perawatan acne, whitening, dan rejuvenation dengan produk klinis DRW di Jogja.",
               "url": "https://drwskincaregunungkidul.com",
               "telephone": "+6281229449995",
               "email": "info@drwskincaregunungkidul.com",
@@ -90,7 +90,7 @@ export default function Document() {
                 "@type": "PostalAddress",
                 "streetAddress": "Jl. Brigjen Katamso No.38, Purbosari",
                 "addressLocality": "Wonosari",
-                "addressRegion": "Gunungkidul",
+                "addressRegion": "Yogyakarta",
                 "postalCode": "55851",
                 "addressCountry": "ID"
               },

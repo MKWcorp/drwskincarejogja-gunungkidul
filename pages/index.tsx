@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Head from "next/head";
+import Script from "next/script";
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
 
 // ✅ Single-file React/Next.js landing page for DRW Skincare
 // - Tailwind CSS (white & pink theme)
@@ -222,6 +224,10 @@ export default function DRWSkincare() {
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWaTooltip, setShowWaTooltip] = useState(true);
+  const [instagramPosts, setInstagramPosts] = useState<any[]>([]);
+  const [instagramLoading, setInstagramLoading] = useState(true);
+  const [apiProducts, setApiProducts] = useState<any[]>([]);
+  const [productsLoading, setProductsLoading] = useState(true);
 
   // Hide tooltip after 5 seconds
   React.useEffect(() => {
@@ -229,6 +235,55 @@ export default function DRWSkincare() {
       setShowWaTooltip(false);
     }, 5000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Fetch Instagram posts
+  React.useEffect(() => {
+    const fetchInstagramPosts = async () => {
+      try {
+        setInstagramLoading(true);
+        const response = await fetch('/api/instagram');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            setInstagramPosts(data.data);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching Instagram posts:', error);
+      } finally {
+        setInstagramLoading(false);
+      }
+    };
+
+    fetchInstagramPosts();
+  }, []);
+
+  // Fetch Products from API
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setProductsLoading(true);
+        // Hanya ambil produk yang memiliki foto
+        const response = await fetch('/api/products?withImages=true');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            // Urutkan berdasarkan abjad dan tampilkan semua produk yang ada foto
+            const sortedProducts = data.data.sort((a: any, b: any) => 
+              a.name.localeCompare(b.name, 'id', { sensitivity: 'base' })
+            );
+            setApiProducts(sortedProducts); // Tampilkan semua produk
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setProductsLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   const activeItems = useMemo(
@@ -276,8 +331,8 @@ export default function DRWSkincare() {
             <a href="#treatments" className="hover:text-pink-600">
               Perawatan
             </a>
-            <a href="#products" className="hover:text-pink-600">
-              Produk
+            <a href="/products" className="hover:text-pink-600">
+              Katalog Produk
             </a>
             <a href="#gallery" className="hover:text-pink-600">
               Galeri
@@ -328,8 +383,8 @@ export default function DRWSkincare() {
               <a href="#treatments" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                 Perawatan
               </a>
-              <a href="#products" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
-                Produk
+              <a href="/products" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
+                Katalog Produk
               </a>
               <a href="#gallery" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                 Galeri
@@ -507,22 +562,111 @@ export default function DRWSkincare() {
             Kombinasikan <strong>treatment facial</strong> dengan rangkaian <em>skincare klinis DRW</em> untuk hasil optimal. 
             Produk berkualitas tinggi untuk perawatan di rumah.
           </p>
+          {!productsLoading && apiProducts.length > 0 && (
+            <p className="text-pink-600 font-medium text-sm mt-2">
+              {apiProducts.length} produk tersedia - geser untuk melihat semua
+            </p>
+          )}
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 mt-6">
-            {products.map((p, idx) => (
-              <button key={idx} onClick={() => setLightbox({ open: true, idx })} className="group text-left">
-                <div className="aspect-square w-full rounded-xl md:rounded-2xl overflow-hidden border border-gray-200 bg-white">
-                  {/* Ganti src dengan file asli Anda */}
-                  <img
-                    src={p.src}
-                    alt={p.name}
-                    className="h-full w-full object-cover group-hover:scale-105 transition"
-                  />
-                </div>
-                <div className="mt-2 font-medium text-sm md:text-base leading-tight">{p.name}</div>
-                <div className="text-xs md:text-sm text-gray-500">Lihat lebih dekat</div>
-              </button>
-            ))}
+          {/* Product Slider */}
+          <div className="relative mt-6">
+            <div className="overflow-x-auto scrollbar-hide">
+              <div className="flex gap-4 md:gap-6 pb-4" style={{ width: 'max-content' }}>
+                {productsLoading ? (
+                  // Loading skeleton - tampilkan 8 skeleton cards
+                  [...Array(8)].map((_, idx) => (
+                    <div key={idx} className="flex-shrink-0 w-48 md:w-56 animate-pulse">
+                      <div className="aspect-square w-full rounded-xl md:rounded-2xl overflow-hidden border border-gray-200 bg-gray-200">
+                      </div>
+                      <div className="mt-2 h-4 bg-gray-200 rounded"></div>
+                      <div className="mt-1 h-3 bg-gray-200 rounded w-3/4"></div>
+                    </div>
+                  ))
+                ) : apiProducts.length > 0 ? (
+                  // API Products
+                  apiProducts.map((product, idx) => (
+                    <a 
+                      key={product.id} 
+                      href={`/products/${product.slug}`}
+                      className="flex-shrink-0 w-48 md:w-56 group text-left hover:shadow-lg transition-all duration-300"
+                    >
+                      <div className="aspect-square w-full rounded-xl md:rounded-2xl overflow-hidden border border-gray-200 bg-white">
+                        <img
+                          src={product.image || '/placeholder-product.svg'}
+                          alt={product.name}
+                          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/placeholder-product.svg';
+                          }}
+                        />
+                      </div>
+                      <div className="mt-2 font-medium text-sm md:text-base leading-tight group-hover:text-pink-600 transition-colors line-clamp-2">
+                        {product.name}
+                      </div>
+                      <div className="text-xs md:text-sm text-pink-600 font-semibold mt-1">
+                        {new Intl.NumberFormat('id-ID', {
+                          style: 'currency',
+                          currency: 'IDR',
+                        }).format(product.price)}
+                      </div>
+                      <div className="text-xs md:text-sm text-gray-500 mt-1">Lihat detail →</div>
+                    </a>
+                  ))
+                ) : (
+                  // Fallback to static products - tampilkan semua
+                  products.map((p, idx) => (
+                    <button 
+                      key={idx} 
+                      onClick={() => setLightbox({ open: true, idx })} 
+                      className="flex-shrink-0 w-48 md:w-56 group text-left"
+                    >
+                      <div className="aspect-square w-full rounded-xl md:rounded-2xl overflow-hidden border border-gray-200 bg-white">
+                        <img
+                          src={p.src}
+                          alt={p.name}
+                          className="h-full w-full object-cover group-hover:scale-105 transition"
+                        />
+                      </div>
+                      <div className="mt-2 font-medium text-sm md:text-base leading-tight line-clamp-2">{p.name}</div>
+                      <div className="text-xs md:text-sm text-gray-500 mt-1">Lihat lebih dekat</div>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+            
+            {/* Scroll indicators */}
+            <div className="hidden md:block">
+              {/* Left scroll indicator */}
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur rounded-full p-2 shadow-lg opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+                <i className="fas fa-chevron-left text-gray-600"></i>
+              </div>
+              
+              {/* Right scroll indicator */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur rounded-full p-2 shadow-lg opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+                <i className="fas fa-chevron-right text-gray-600"></i>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile swipe hint */}
+          <div className="md:hidden text-center mt-4">
+            <p className="text-xs text-gray-500">
+              <i className="fas fa-hand-point-right mr-1"></i>
+              Geser untuk melihat produk lainnya
+            </p>
+          </div>
+
+          {/* View All Products Button */}
+          <div className="text-center mt-8">
+            <a
+              href="/products"
+              className="inline-flex items-center px-6 py-3 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Lihat Semua Produk
+              <i className="fas fa-arrow-right ml-2"></i>
+            </a>
           </div>
 
           {/* Simple Lightbox */}
@@ -556,21 +700,38 @@ export default function DRWSkincare() {
       <section id="gallery" className="mx-auto max-w-6xl px-4 py-8 md:py-14">
         <div className="flex items-end justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-heading">Galeri</h2>
-            <p className="text-gray-600 font-sans text-sm md:text-base">Suasana Beauty Center & momen pelanggan kami</p>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-heading">Galeri Instagram</h2>
+            <p className="text-gray-600 font-sans text-sm md:text-base">Post terbaru dari <a href="https://www.instagram.com/rumahcantikirin/" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">@rumahcantikirin</a></p>
           </div>
+          <a 
+            href="https://www.instagram.com/rumahcantikirin/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-pink-600 hover:text-pink-700 transition-colors"
+          >
+            <i className="fab fa-instagram text-2xl"></i>
+          </a>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <div key={n} className="aspect-[4/3] rounded-xl md:rounded-2xl overflow-hidden border border-pink-200 bg-pink-50">
-              {/* Ganti src dengan foto ambience/klinik */}
-              <img
-                src={`/images/gallery/clinic-${n}.jpg`}
-                alt={`Galeri ${n}`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          ))}
+        
+        {/* Instagram Feed */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+          <blockquote className="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DKyxhdKBRfN/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style={{ background:'#FFF', border:0, borderRadius:'3px', boxShadow:'0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', margin: '1px', maxWidth:'326px', minWidth:'326px', padding:0, width:'calc(100% - 2px)' }}></blockquote>
+          <blockquote className="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DKg7UU-BPV7/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style={{ background:'#FFF', border:0, borderRadius:'3px', boxShadow:'0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', margin: '1px', maxWidth:'326px', minWidth:'326px', padding:0, width:'calc(100% - 2px)' }}></blockquote>
+          <blockquote className="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DCK0WBvtQdy/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style={{ background:'#FFF', border:0, borderRadius:'3px', boxShadow:'0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15)', margin: '1px', maxWidth:'326px', minWidth:'326px', padding:0, width:'calc(100% - 2px)' }}></blockquote>
+        </div>
+        <Script async src="//www.instagram.com/embed.js" />
+
+        {/* View More on Instagram */}
+        <div className="text-center mt-8">
+          <a
+            href="https://www.instagram.com/rumahcantikirin/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-full hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            <i className="fab fa-instagram mr-2 text-lg"></i>
+            Follow @rumahcantikirin
+          </a>
         </div>
       </section>
 
@@ -778,6 +939,20 @@ function FormatIDRTests() {
           </tbody>
         </table>
       </div>
+
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp />
+
+      {/* Custom CSS untuk slider */}
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;  /* Internet Explorer 10+ */
+          scrollbar-width: none;  /* Firefox */
+        }
+        .scrollbar-hide::-webkit-scrollbar { 
+          display: none;  /* Safari and Chrome */
+        }
+      `}</style>
     </div>
   );
 }

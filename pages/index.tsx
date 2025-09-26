@@ -1,7 +1,16 @@
 import React, { useMemo, useState } from "react";
 import Head from "next/head";
 import Script from "next/script";
+import Link from "next/link";
 import FloatingWhatsApp from "../components/FloatingWhatsApp";
+
+interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  image?: string;
+  price?: string;
+}
 
 // ✅ Single-file React/Next.js landing page for DRW Skincare
 // - Tailwind CSS (white & pink theme)
@@ -224,9 +233,10 @@ export default function DRWSkincare() {
   });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showWaTooltip, setShowWaTooltip] = useState(true);
-  const [instagramPosts, setInstagramPosts] = useState<any[]>([]);
-  const [instagramLoading, setInstagramLoading] = useState(true);
-  const [apiProducts, setApiProducts] = useState<any[]>([]);
+  // Instagram state removed - using static embeds now
+  // const [instagramPosts, setInstagramPosts] = useState<any[]>([]);
+  // const [instagramLoading, setInstagramLoading] = useState(true);
+  const [apiProducts, setApiProducts] = useState<Product[]>([]);
   const [productsLoading, setProductsLoading] = useState(true);
 
   // Hide tooltip after 5 seconds
@@ -237,27 +247,7 @@ export default function DRWSkincare() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Fetch Instagram posts
-  React.useEffect(() => {
-    const fetchInstagramPosts = async () => {
-      try {
-        setInstagramLoading(true);
-        const response = await fetch('/api/instagram');
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success) {
-            setInstagramPosts(data.data);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching Instagram posts:', error);
-      } finally {
-        setInstagramLoading(false);
-      }
-    };
-
-    fetchInstagramPosts();
-  }, []);
+  // Instagram fetch removed - using static embeds now
 
   // Fetch Products from API
   React.useEffect(() => {
@@ -270,7 +260,7 @@ export default function DRWSkincare() {
           const data = await response.json();
           if (data.success) {
             // Urutkan berdasarkan abjad dan tampilkan semua produk yang ada foto
-            const sortedProducts = data.data.sort((a: any, b: any) => 
+            const sortedProducts = (data.data as Product[]).sort((a: Product, b: Product) => 
               a.name.localeCompare(b.name, 'id', { sensitivity: 'base' })
             );
             setApiProducts(sortedProducts); // Tampilkan semua produk
@@ -331,9 +321,9 @@ export default function DRWSkincare() {
             <a href="#treatments" className="hover:text-pink-600">
               Perawatan
             </a>
-            <a href="/products" className="hover:text-pink-600">
+            <Link href="/products" className="hover:text-pink-600">
               Katalog Produk
-            </a>
+            </Link>
             <a href="#gallery" className="hover:text-pink-600">
               Galeri
             </a>
@@ -383,9 +373,9 @@ export default function DRWSkincare() {
               <a href="#treatments" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                 Perawatan
               </a>
-              <a href="/products" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/products" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                 Katalog Produk
-              </a>
+              </Link>
               <a href="#gallery" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                 Galeri
               </a>
@@ -605,10 +595,10 @@ export default function DRWSkincare() {
                         {product.name}
                       </div>
                       <div className="text-xs md:text-sm text-pink-600 font-semibold mt-1">
-                        {new Intl.NumberFormat('id-ID', {
+                        {product.price ? new Intl.NumberFormat('id-ID', {
                           style: 'currency',
                           currency: 'IDR',
-                        }).format(product.price)}
+                        }).format(Number(product.price)) : 'Hubungi kami'}
                       </div>
                       <div className="text-xs md:text-sm text-gray-500 mt-1">Lihat detail →</div>
                     </a>
@@ -660,13 +650,13 @@ export default function DRWSkincare() {
 
           {/* View All Products Button */}
           <div className="text-center mt-8">
-            <a
+            <Link
               href="/products"
               className="inline-flex items-center px-6 py-3 bg-pink-600 text-white font-semibold rounded-lg hover:bg-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Lihat Semua Produk
               <i className="fas fa-arrow-right ml-2"></i>
-            </a>
+            </Link>
           </div>
 
           {/* Simple Lightbox */}

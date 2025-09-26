@@ -103,18 +103,18 @@ export default function ProductsPage() {
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6 text-sm">
-              <a href="/#treatments" className="hover:text-pink-600">
+              <Link href="/#treatments" className="hover:text-pink-600">
                 Perawatan
-              </a>
-              <a href="/products" className="text-pink-600 font-medium">
+              </Link>
+              <Link href="/products" className="text-pink-600 font-medium">
                 Katalog Produk
-              </a>
-              <a href="/#gallery" className="hover:text-pink-600">
+              </Link>
+              <Link href="/#gallery" className="hover:text-pink-600">
                 Galeri
-              </a>
-              <a href="/#contact" className="hover:text-pink-600">
+              </Link>
+              <Link href="/#contact" className="hover:text-pink-600">
                 Kontak
-              </a>
+              </Link>
               <a href={brand.social.fb} target="_blank" className="hover:text-pink-600">
                 Facebook
               </a>
@@ -155,18 +155,18 @@ export default function ProductsPage() {
           {mobileMenuOpen && (
             <div className="md:hidden border-t border-gray-200 bg-white">
               <nav className="px-4 py-4 space-y-3">
-                <a href="/#treatments" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/#treatments" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                   Perawatan
-                </a>
-                <a href="/products" className="block py-2 text-pink-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
+                </Link>
+                <Link href="/products" className="block py-2 text-pink-600 font-medium" onClick={() => setMobileMenuOpen(false)}>
                   Katalog Produk
-                </a>
-                <a href="/#gallery" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
+                </Link>
+                <Link href="/#gallery" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                   Galeri
-                </a>
-                <a href="/#contact" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
+                </Link>
+                <Link href="/#contact" className="block py-2 hover:text-pink-600" onClick={() => setMobileMenuOpen(false)}>
                   Kontak
-                </a>
+                </Link>
                 <div className="border-t border-gray-200 pt-3 space-y-2">
                   <a href={brand.social.fb} target="_blank" className="block py-2 text-sm text-gray-600">
                     <i className="fab fa-facebook text-blue-600 mr-2"></i> Facebook
